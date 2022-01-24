@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.newsapp.data.models.Article
+import com.example.newsapp.domain.entity.Article
 
 @Dao
 interface NewsDataBaseDao {
@@ -15,5 +15,8 @@ interface NewsDataBaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert (article: Article)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert (articles: List<Article>)
 
 }

@@ -4,10 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.newsapp.R
-import com.example.newsapp.domain.NewsApiRepository
+import com.example.newsapp.domain.common.LoadDataResult
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @SuppressLint("CustomSplashScreen")
@@ -20,10 +19,12 @@ class SplashActivity : AppCompatActivity() {
 
         fun findNavController() = findNavController(R.id.fragment_holder)
 
-        viewModel.getInsertNews()
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+        viewModel.getInsertNews().observe(this, {
+            if (it.isSuccess) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
     }
 }
