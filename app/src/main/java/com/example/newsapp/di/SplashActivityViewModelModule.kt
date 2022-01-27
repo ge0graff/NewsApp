@@ -6,7 +6,7 @@ import org.koin.dsl.module
 
 val splashActivityViewModelModule = module {
     viewModel {
-        SplashActivityViewModel(provideNewsApiRepository(get(), get()))
+        SplashActivityViewModel(provideNewsApiRepository(get(), get()), provideDataBaseRepository(get()))
     }
 
 }

@@ -21,7 +21,7 @@ class Application : Application() {
                     newsDataBaseDaoModule,
                     splashActivityViewModelModule,
                     dataBaseRepositoryModule,
-                    newsFragmentViewModelModule
+                    newsFragmentViewModelModule,
                 )
             )
         }

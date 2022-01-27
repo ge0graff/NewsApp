@@ -9,7 +9,7 @@ import com.example.newsapp.domain.entity.Article
 
 @Database(
     entities = [Article::class],
-    version = 9,
+    version = 1,
     exportSchema = false
 )
 

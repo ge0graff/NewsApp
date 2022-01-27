@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.newsapp.R
 import com.example.newsapp.domain.entity.Article
 import com.example.newsapp.databinding.NewItemBinding
 
-class MainAdapter(): ListAdapter<Article, MainAdapter.MainViewHolder>(DiffCallBack()) {
+class MainAdapter(
+    private val actionListener: ForwardClick
+): ListAdapter<Article, MainAdapter.MainViewHolder>(DiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val binding = NewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,14 +28,20 @@ class MainAdapter(): ListAdapter<Article, MainAdapter.MainViewHolder>(DiffCallBa
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) = with(binding) {
 
-            Glide.with(itemView.context)
-                .load(article.urlToImage)
-                .centerCrop()
-                .into(itemImage)
+                Glide.with(itemView.context)
+                    .load(article.urlToImage)
+                    .centerCrop()
+                    .error(R.drawable.ic_image_not_found)
+                    .placeholder(R.drawable.ic_image_not_found)
+                    .into(itemImage)
 
             itemTitle.text = article.title
             itemDescription.text = article.description
             itemData.text = article.publishedAt
+
+            itemView.setOnClickListener {
+                actionListener.onDetails(article)
+            }
         }
     }
 
