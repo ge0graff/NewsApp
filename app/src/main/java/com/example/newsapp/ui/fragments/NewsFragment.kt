@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.domain.NetworkConnect
 import com.example.newsapp.domain.entity.Article
+import com.example.newsapp.ui.activities.MainActivity
 import com.example.newsapp.ui.adapters.ForwardClick
 import com.example.newsapp.ui.adapters.MainAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,7 +22,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class NewsFragment : Fragment(), ForwardClick, SearchView.OnQueryTextListener {
 
     private val viewModel by viewModel<NewsFragmentViewModel>()
-
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
@@ -44,14 +46,16 @@ class NewsFragment : Fragment(), ForwardClick, SearchView.OnQueryTextListener {
         binding.apply {
             newsRcView.adapter = adapter
             newsRcView.layoutManager = LinearLayoutManager(requireContext())
-        }
 
+        }
         viewModel.apply {
             newsList.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)
             })
         }
     }
+
+
 
     override fun onDetails(news: Article) {
         val bundle = Bundle()
@@ -84,5 +88,6 @@ class NewsFragment : Fragment(), ForwardClick, SearchView.OnQueryTextListener {
             }
         })
     }
+
 
 }

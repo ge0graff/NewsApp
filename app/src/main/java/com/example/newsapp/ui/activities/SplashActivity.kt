@@ -1,11 +1,17 @@
 package com.example.newsapp.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.example.newsapp.R
+import com.example.newsapp.databinding.ActivityMainBinding
+import com.example.newsapp.databinding.SplashActivityBinding
 import com.example.newsapp.domain.NetworkConnect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,8 +24,16 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var networkConnectManager : NetworkConnect
 
+    private lateinit var bindingMain: SplashActivityBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        bindingMain = SplashActivityBinding.inflate(layoutInflater)
+
+        bindingMain.updateButton.setOnClickListener {
+            checkNetworkConnection()
+        }
 
         clearDatabase()
 
@@ -44,16 +58,12 @@ class SplashActivity : AppCompatActivity() {
 
         networkConnectManager = NetworkConnect(this)
 
-        networkConnectManager.observe(this, { isConnected ->
-
-            if (isConnected){
-
-                getToApp()
-
-            }else{
-                Log.d("Test", "No connect")
-                Toast.makeText(this, "No connect", Toast.LENGTH_LONG).show()
-            }
-        })
+        if (networkConnectManager.isOnline()) {
+            getToApp()
+        } else {
+            setContentView(bindingMain.root)
+        }
     }
+
+
 }

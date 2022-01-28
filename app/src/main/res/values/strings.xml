@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="empty_text">No comments...</string>
     <string name="connect_error">Проверьте подключение к интернету</string>
+    <string name="no_connect">Нет подключения к сети...</string>
+    <string name="update_button">Обновить</string>
 </resources>

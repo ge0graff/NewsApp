@@ -18,7 +18,4 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="DisconnectScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/disconnect_screen</item>
-    </style>
 </resources>
